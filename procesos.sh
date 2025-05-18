@@ -12,3 +12,21 @@ info_proceso() {
     ps -p $pid -f
     read -p "Presiona Enter para volver al menú..."
 }
+
+matar_proceso() {
+    read -p "Ingresa el PID del proceso que deseas terminar: " pid
+    read -p "¿Estás seguro que deseas terminar el proceso $pid? (s/n): " confirmacion
+    if [[ "$confirmacion" == "s" || "$confirmacion" == "S" ]]; then
+        kill $pid && echo "Proceso $pid terminado." || echo "No se pudo terminar el proceso."
+    else
+        echo "Operación cancelada."
+    fi
+    read -p "Presiona Enter para volver al menú..."
+}
+
+estado_proceso() {
+    read -p "Ingresa el nombre o parte del nombre del proceso: " nombre
+    echo "Procesos que coinciden con '$nombre':"
+    pgrep -a "$nombre"
+    read -p "Presiona Enter para volver al menú..."
+}
