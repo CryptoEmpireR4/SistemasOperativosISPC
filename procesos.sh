@@ -49,3 +49,5 @@ case "$1" in
         echo "Uso: $0 {listar|info|matar|estado}"
         ;;    
 esac
+git add procesos.sh
+git commit -m "Resolver conflicto en procesos.sh tras merge de historias no relacionadas"
