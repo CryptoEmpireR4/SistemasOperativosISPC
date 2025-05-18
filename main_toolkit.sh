@@ -1,6 +1,5 @@
 #!/bin/bash
-while true
-do
+while true; do
         clear
 
         echo "====================================="
@@ -14,15 +13,29 @@ do
         echo "4 - Estado del Proceso"
         echo "5 - Salir de la Aplicación"
         echo "===================================="
-        echo "Elige una de las opciones (Nros del 1 al 5): "
-        read opcion
+        read -p "Elige una opción (1-5): " opcion
         case $opcion in
-                5)
-                        echo "Saliendo de la App"
-                        break;;
                 1)
-                        echo "Listando Procesos en Ejecucion"
-                        top;;
+                bash procesos.sh listar
+                ;;
+                2)
+                bash procesos.sh info
+                ;;
+                3)
+                bash procesos.sh matar
+                ;;
+                4)
+                bash procesos.sh estado
+                ;;  
+                5)
+                  echo "Saliendo de la App"
+                  sleep 1
+                  break
+                  ;;
+                *)
+                echo "Opción inválida. Presiona Enter para continuar."
+                read;;
+        esac             
 done
 
 
