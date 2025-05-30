@@ -12,7 +12,9 @@
 | Archivo           | Descripción                                                                 |
 |-------------------|------------------------------------------------------------------------------|
 | `main_toolkit.sh` | Script principal con menú de texto para acceder a las funcionalidades        |
-| `procesos.sh`     | Script que gestiona las operaciones sobre los procesos del sistema           |
+| `procesos.sh`     | Script que gestiona los procesos del sistema                                 |
+| `memoria.sh`      | Script que muestra el estado de la memoria RAM/SWAP y detalles de vmstat     |
+| `disco.sh`        | Script que muestra el uso del disco y archivos del sistema                   |
 
 ---
 
@@ -32,30 +34,32 @@
 
 ## Funcionalidades Disponibles 
 
-### 1. Listar Procesos en Ejecución
-Muestra todos los procesos del sistema en formato estático usando `ps aux`. El resultado se puede navegar con `less`.
+### 1. Gestión de Procesos (`procesos.sh`)
+- Listar procesos en ejecución (`ps aux`)
+- Consultar información detallada de un proceso (`ps -p <PID>`)
+- Terminar un proceso (`kill` con confirmación)
+- Ver estado de procesos por nombre (`pgrep -a`)
 
-### 2. Ver Información de un Proceso por PID
-Permite ingresar un PID (Process ID) y muestra detalles del proceso con `ps -p <PID> -f`.
+### 2. Información de Memoria (`memoria.sh`)
+- Uso de RAM y SWAP (`free -h`)
+- Detalles de `/proc/meminfo`
+- Estado en tiempo real con `vmstat`
 
-### 3. Terminar un Proceso
-Solicita el PID del proceso a terminar. Antes de ejecutar `kill`, solicita confirmación del usuario.
+### 3. Información del Disco (`disco.sh`)
+- Mostrar espacio en disco (`df -h`)
+- Mostrar tamaño de una ruta (`du -sh`)
+- Listar archivos y permisos (`ls -l`)
 
-### 4. Estado de un Proceso
-Permite buscar procesos por nombre o coincidencia parcial usando `pgrep -a`.
-
-### 5. Salir
+### 0. Salir
 Finaliza la ejecución del toolkit.
 
 ---
 
 ## 🔧 Comandos Utilizados
 
-- `ps`
-- `kill`
-- `pgrep`
-- `less`
-- `read`
-- `clear`
+- `ps`, `kill`, `pgrep`
+- `free`, `vmstat`, `cat /proc/meminfo`
+- `df`, `du`, `ls`
+- `read`, `clear`, `sleep`
 
 ---
