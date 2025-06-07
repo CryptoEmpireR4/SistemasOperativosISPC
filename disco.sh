@@ -1,4 +1,4 @@
-"archivo creado, completar con código"
+
 #!/bin/bash
 
 echo "====== INFORMACIÓN DE DISCO ======"
