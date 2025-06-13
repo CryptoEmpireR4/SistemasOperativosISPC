@@ -1,51 +1,49 @@
 #!/bin/bash
 
-listar_procesos() {
-    echo "Procesos en ejecución:"
-    ps aux | less
-    read -p "Presiona Enter para volver al menú..."
-}
+while true; do
+    clear
+    echo "====== GESTIÓN DE PROCESOS ======"
+    echo "1 - Listar procesos en ejecución"
+    echo "2 - Ver información de un proceso por PID"
+    echo "3 - Terminar un proceso"
+    echo "4 - Buscar proceso por nombre"
+    echo "0 - Volver al menú principal"
+    read -p "Elige una opción: " opcion
 
-info_proceso() {
-    read -p "Ingresa el PID del proceso: " pid
-    echo "Información del proceso $pid:"
-    ps -p $pid -f
-    read -p "Presiona Enter para volver al menú..."
-}
+    case $opcion in
+        1)
+            ps aux | less
+            ;;
+        2)
+            read -p "Ingrese el PID: " pid
+            echo ""
+            ps -p "$pid" -f
+            ;;
+        3)
+            read -p "Ingrese el PID a terminar: " pid
+            read -p "¿Está seguro? (s/n): " confirm
+            if [[ "$confirm" =~ ^[sS]$ ]]; then
+                kill "$pid" && echo "✅ Proceso $pid terminado." || echo "❌ Error al terminar el proceso."
+            else
+                echo "Operación cancelada."
+            fi
+            ;;
+        4)
+            read -p "Nombre o parte del nombre del proceso: " nombre
+            echo ""
+            pgrep -a "$nombre"
+            ;;
+        0)
+            break
+            ;;
+        *)
+            echo "Opción inválida."
+            ;;
+    esac
 
-matar_proceso() {
-    read -p "Ingresa el PID del proceso que deseas terminar: " pid
-    read -p "¿Estás seguro que deseas terminar el proceso $pid? (s/n): " confirmacion
-    if [[ "$confirmacion" == "s" || "$confirmacion" == "S" ]]; then
-        kill $pid && echo "Proceso $pid terminado." || echo "No se pudo terminar el proceso."
-    else
-        echo "Operación cancelada."
-    fi
-    read -p "Presiona Enter para volver al menú..."
-}
-
-estado_proceso() {
-    read -p "Ingresa el nombre o parte del nombre del proceso: " nombre
-    echo "Procesos que coinciden con '$nombre':"
-    pgrep -a "$nombre"
-    read -p "Presiona Enter para volver al menú..."
-}
-
-#lógica de ejecución según parámetro
-case "$1" in 
-    listar)
-        listar_procesos
-        ;;
-    info)
-        info_proceso
-        ;;
-    matar)
-        matar_proceso
-        ;;
-    estado)
-        estado_proceso
-        ;;
-    *)
+    echo ""
+    read -p "Presiona Enter para continuar..."
+done
         echo "Uso: $0 {listar|info|matar|estado}"
         ;;    
 esac
